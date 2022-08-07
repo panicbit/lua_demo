@@ -1,0 +1,16 @@
+[package]
+name = "lua_demo"
+version = "0.1.0"
+edition = "2021"
+
+[profile.release]
+opt-level = "z"
+strip = true
+lto = true
+panic = "abort"
+
+[dependencies]
+anyhow = "1.0.60"
+num-integer = { version = "0.1.45", features = ["i128"] }
+rlua = "0.19.4"
+structopt = "0.3.26"
