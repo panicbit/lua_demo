@@ -36,7 +36,9 @@ fn run(opt: Opt, ctx: Context) -> Result<()> {
 fn run_lua_file(lua_file: &LuaFile, ctx: Context) -> Result<()> {
     eprintln!(">>> Running {:?}", lua_file.path);
 
-    let chunk_name = lua_file.path.file_name()
+    let chunk_name = lua_file
+        .path
+        .file_name()
         .unwrap_or_default()
         .to_string_lossy();
 
@@ -53,8 +55,8 @@ fn load_lua_files(path: &Path) -> Result<Vec<LuaFile>> {
     let metadata = path.metadata().context("failed to get path metadata")?;
 
     if !metadata.is_dir() {
-        let lua_file = load_lua_file(path)
-            .with_context(|| format!("failed to load lua file {path:?}"))?;
+        let lua_file =
+            load_lua_file(path).with_context(|| format!("failed to load lua file {path:?}"))?;
 
         return Ok(vec![lua_file]);
     }
